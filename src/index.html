@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./scss/app.scss">
+  <script src="./js/app.js" type="module"></script>
+  <title>To Do</title>
+</head>
+<body>
+
+  <main class="main">
+    <section class="container-fluid">
+
+      <div class="todo">
+        <div class="todo__head d-flex justify-content-between">
+          <h1 class="todo__logo m-4">To Do</h1>
+          <time class="time m-4">time</time>
+        </div> <!-- todo__head -->
+        <div class="todo__content d-flex">
+          <div id="todoContent" class="todo__content-wrapper d-flex"></div>
+          <div class="list m-4 border border-primary border-3 rounded">
+            <div class="list__head d-flex justify-content-between border-bottom">
+              <h2 class="m-3">To Do</h2>
+              <p class="m-3 mt-4">count 0</p>
+            </div>
+            <div class="list__content">
+              <!-- <div class="desk">
+                <div class="desk__head d-flex">
+                  <div class="desk__title">Title</div>
+                  <time class="desk__time">Date</time>
+                </div>
+                <p class="desk__text">Description</p>
+                <div class="desk__user">User<img></div>
+                <div class="desk__navigator d-flex">
+                  <div>Status</div>
+                  <button>Edit</button>
+                  <button>Remove</button>
+                </div>
+              </div> -->
+            </div>
+            <div class="list__footer">
+              <button class="btn list__add">+ add</button>
+              <!-- <button class="bnt list__delete-all">delete all</button> -->
+            </div>
+          </div>
+
+          <div class="list m-4 border border-primary border-3 rounded">
+            <div class="list__head d-flex justify-content-between border-bottom">
+              <h2 class="m-3">Working</h2>
+              <p class="m-3 mt-4">count 0</p>
+            </div>
+            <div class="list__content"></div>
+            <div class="list__footer">
+              <!-- <button class="btn list__add">+ add</button> -->
+              <!-- <button class="bnt list__delete-all">delete all</button> -->
+            </div>
+          </div>
+
+          <div class="list m-4 border border-primary border-3 rounded">
+            <div class="list__head d-flex justify-content-between border-bottom">
+              <h2 class="m-3">Done</h2>
+              <p class="m-3 mt-4">count 0</p>
+            </div>
+            <div class="list__content"></div>
+            <div class="list__footer">
+              <!-- <button class="btn list__add">+ add</button> -->
+              <button class="bnt list__delete-all">delete all</button>
+            </div>
+          </div>
+
+        </div> <!-- todo__content -->
+      </div> <!-- todo -->
+
+    </section>
+  </main>
+
+</body>
+</html>
