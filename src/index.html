@@ -14,18 +14,23 @@
     <section class="container-fluid">
 
       <div class="todo">
+
         <div class="todo__head d-flex justify-content-between">
           <h1 class="todo__logo m-4">To Do</h1>
           <time class="time m-4">time</time>
         </div> <!-- todo__head -->
+
         <div class="todo__content d-flex">
+
           <div id="todoContent" class="todo__content-wrapper d-flex"></div>
           <div class="list m-4 border border-primary border-3 rounded">
             <div class="list__head d-flex justify-content-between border-bottom">
               <h2 class="m-3">To Do</h2>
               <p class="m-3 mt-4">count 0</p>
             </div>
-            <div class="list__content">
+
+            <div id="listContent" class="list__content">
+
               <!-- <div class="desk">
                 <div class="desk__head d-flex">
                   <div class="desk__title">Title</div>
@@ -34,14 +39,25 @@
                 <p class="desk__text">Description</p>
                 <div class="desk__user">User<img></div>
                 <div class="desk__navigator d-flex">
-                  <div>Status</div>
-                  <button>Edit</button>
-                  <button>Remove</button>
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">todo</a></li>
+                      <li><a class="dropdown-item" href="#">in progress</a></li>
+                      <li><a class="dropdown-item" href="#">done</a></li>
+                    </ul>
+                  </div>
+                  <button class="btn btn-primary">Edit</button>
+                  <button class="btn btn-danger">Remove</button>
                 </div>
               </div> -->
-            </div>
+
+            </div> <!--list__content-->
+
             <div class="list__footer">
-              <button class="btn list__add">+ add</button>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Add</button>
               <!-- <button class="bnt list__delete-all">delete all</button> -->
             </div>
           </div>
@@ -72,6 +88,51 @@
 
         </div> <!-- todo__content -->
       </div> <!-- todo -->
+
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Add desk</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="form" action="#">
+
+                <div class="mb-3">
+                  <label for="submit" class="col-form-label">Title</label>
+                  <input id="inputList" type="text" class="form-control" >
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Message:</label>
+                  <textarea id="textareaList" class="form-control" ></textarea>
+                </div>
+                <div class="mb-3">
+                  <select id="user" class="form-select" aria-label="Default select example">
+                    <option selected>Chose user</option>
+                    <option value="user1">User 1</option>
+                    <option value="user2">User 2</option>
+                    <option value="user3">User 3</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <select id="bgColor" class="form-select" aria-label="Default select example">
+                    <option class=".bg-danger-subtle" value="bg-danger-subtle">Chose background danger-subtle</option>
+                    <option class=".bg-warning" value="bg-warning">Chose background warning</option>
+                    <option class=".bg-success" value="bg-success">Chose background success</option>
+                  </select>
+                </div>
+
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cansel</button>
+              <button id="confirmList" type="button" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </section>
   </main>
