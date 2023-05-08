@@ -17,6 +17,7 @@ const userElement = document.querySelector('#user')
 const bgColorElement = document.querySelector('#bgColor')
 const buttonConfirmElement = document.querySelector('#confirmList')
 const todoMainElement = document.querySelector('#todoMain')
+const buttonDeleteAll = document.querySelector('#deleteAll')
 
 
 
@@ -24,15 +25,13 @@ const todoMainElement = document.querySelector('#todoMain')
 
 
 formElement.addEventListener('submit', handleSubmitForm)
-
 listContentTodoElement.addEventListener('click', hendleDropDeskTodo)
 listContentProggresElement.addEventListener('click', hendleDropDeskProggres)
 listContentDoneElement.addEventListener('click', hendleDropDeskDone)
-
-console.log(todoMainElement)
-
 todoMainElement.addEventListener('click', hendleDeleteCard)
+buttonDeleteAll.addEventListener('click', hendleDeleteAllCard)
 
+console.log(buttonDeleteAll)
 // Hendlers
 
 function handleSubmitForm (event) {
@@ -156,6 +155,11 @@ function hendleDeleteCard (event) {
     }
 
   }
+}
+
+function hendleDeleteAllCard () {
+  dataDone.length = 0
+  render(dataDone, listContentDoneElement)
 }
 
 
