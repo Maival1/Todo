@@ -17,6 +17,7 @@ const bgColorElement = document.querySelector('#bgColor')
 const buttonConfirmElement = document.querySelector('#confirmList')
 const todoMainElement = document.querySelector('#todoMain')
 const buttonDeleteAll = document.querySelector('#deleteAll')
+const exampleModal = document.getElementById('exampleModal2')
 
 // Listeners
 
@@ -26,6 +27,7 @@ listContentProggresElement.addEventListener('click', hendleDropDeskProggres) // 
 listContentDoneElement.addEventListener('click', hendleDropDeskDone) // Перенос карточк в Done
 todoMainElement.addEventListener('click', hendleDeleteCard) // Удаление карточки через кнопку Remove
 buttonDeleteAll.addEventListener('click', hendleDeleteAllCard) // Удаление всех карточек в Done
+exampleModal.addEventListener('show.bs.modal', hendleEditForm)
 window.addEventListener('beforeunload', handleBeforeUnload)
 
 // Init
@@ -35,6 +37,46 @@ render(dataProggres, listContentProggresElement)
 render(dataDone, listContentDoneElement)
 
 // Hendlers
+
+// Открытие формы через Edit
+function hendleEditForm (event) {
+  const button = event.relatedTarget
+  // Extract info from data-bs-* attributes
+  const recipient = button.getAttribute('data-bs-whatever')
+  console.log(recipient)
+  // If necessary, you could initiate an Ajax request here
+  // and then do the updating in a callback.
+
+  // Update the modal's content.
+  const modalTitle = exampleModal.querySelector('.modal-title')
+  const modalBodyInput = exampleModal.querySelector('.modal-body input')
+  const modalTextArea = exampleModal.querySelector('#textareaList2')
+  const modalUser = exampleModal.querySelector('#user2')
+  const modalBgColor = exampleModal.querySelector('#bgColor2')
+  console.log(modalBgColor)
+
+  modalTitle.textContent = `New message to ${recipient}`
+  modalBodyInput.value = recipient
+
+  const desk = button.closest('.desk')
+  const deskID = desk.id
+  const list = desk.closest('.list__content')
+  const listID = list.id
+
+  if (listID == 'listContentTodo') {
+    const deskOpen = data.find((card) => card.id == deskID)
+    modalTextArea.textContent = deskOpen.description
+  }
+  if (listID == 'listContentProggres') {
+    const deskOpen = dataProggres.find((card) => card.id == deskID)
+    modalTextArea.textContent = deskOpen.description
+  }
+  if (listID == 'listContentDone') {
+    const deskOpen = dataDone.find((card) => card.id == deskID)
+    modalTextArea.textContent = deskOpen.description
+  }
+
+}
 
 // Отправка формы и отрисовка
 function handleSubmitForm (event) {
@@ -136,16 +178,11 @@ function hendleDropDeskDone (event) {
 function hendleDeleteCard (event) {
   const button = event.target
   const role = button.role
-  console.log(role)
   if (role == 'deleteCard') {
     const desk = button.closest('.desk')
     const deskID = desk.id
-    console.log(desk)
-    console.log(deskID)
     const list = desk.closest('.list__content')
     const listID = list.id
-    console.log(list)
-    console.log(listID)
     if (listID == 'listContentTodo') {
       data = data.filter((item) => item.id != deskID)
       render(data, listContentTodoElement)
@@ -202,7 +239,7 @@ function buildDeskTemplate (data) {
         <li><button class="dropdown-item progress-btn" value="progress">in progress</button></li>
         <li><button class="dropdown-item done-btn" value="done">done</button></li>
       </div>
-      <button class="btn btn-primary">Edit</button>
+      <button type="button" class="btn btn-primary" role="edit" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="${data.title}">Edit</button>
       <button class="btn btn-danger" role="deleteCard">Remove</button>
     </div>
   </div>`
@@ -242,3 +279,6 @@ function setData (source, source2, source3) {
 function handleBeforeUnload() {
   setData(data, dataProggres, dataDone)
 }
+
+
+

@@ -114,6 +114,51 @@
         </div>
       </div>
 
+
+      <!-- Modal for edit-->
+      <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel2">Add desk</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="form2" action="#">
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="submit" class="col-form-label">Title</label>
+                  <input id="inputList2" type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Message:</label>
+                  <textarea id="textareaList2" class="form-control"></textarea>
+                </div>
+                <div class="mb-3">
+                  <select id="user2" class="form-select" aria-label="Default select example">
+                    <option >Chose user</option>
+                    <option value="user1">User 1</option>
+                    <option value="user2">User 2</option>
+                    <option value="user3">User 3</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <select id="bgColor2" class="form-select" aria-label="Default select example">
+                    <option class=".bg-danger-subtle" value="bg-danger-subtle">Chose background danger-subtle</option>
+                    <option class=".bg-warning" value="bg-warning">Chose background warning</option>
+                    <option class=".bg-success" value="bg-success">Chose background success</option>
+                  </select>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cansel</button>
+                <button id="confirmList2" class="btn btn-default btn-success" type="submit" name="submit"
+                  value="Submit" data-bs-dismiss="modal">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
     </section>
   </main>
 
