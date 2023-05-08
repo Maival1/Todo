@@ -1,11 +1,10 @@
 import * as bootstrap from 'bootstrap'
 
-
 // Variables
 
-let data = []
-let dataProggres = []
-let dataDone = []
+let data = getData() // Данные колонки Todo
+let dataProggres = getDataProggres() // Данные колонки Proggres
+let dataDone = getDataDone() // Данные колонки Done
 const listContentTodoElement = document.querySelector('#listContentTodo')
 const listContentProggresElement = document.querySelector('#listContentProggres')
 const listContentDoneElement = document.querySelector('#listContentDone')
@@ -19,21 +18,25 @@ const buttonConfirmElement = document.querySelector('#confirmList')
 const todoMainElement = document.querySelector('#todoMain')
 const buttonDeleteAll = document.querySelector('#deleteAll')
 
-
-
 // Listeners
 
+formElement.addEventListener('submit', handleSubmitForm) // Добавление карточки
+listContentTodoElement.addEventListener('click', hendleDropDeskTodo) // Перенос карточки в Todo
+listContentProggresElement.addEventListener('click', hendleDropDeskProggres) // Перенос карточки в Proggres
+listContentDoneElement.addEventListener('click', hendleDropDeskDone) // Перенос карточк в Done
+todoMainElement.addEventListener('click', hendleDeleteCard) // Удаление карточки через кнопку Remove
+buttonDeleteAll.addEventListener('click', hendleDeleteAllCard) // Удаление всех карточек в Done
+window.addEventListener('beforeunload', handleBeforeUnload)
 
-formElement.addEventListener('submit', handleSubmitForm)
-listContentTodoElement.addEventListener('click', hendleDropDeskTodo)
-listContentProggresElement.addEventListener('click', hendleDropDeskProggres)
-listContentDoneElement.addEventListener('click', hendleDropDeskDone)
-todoMainElement.addEventListener('click', hendleDeleteCard)
-buttonDeleteAll.addEventListener('click', hendleDeleteAllCard)
+// Init
 
-console.log(buttonDeleteAll)
+render(data, listContentTodoElement)
+render(dataProggres, listContentProggresElement)
+render(dataDone, listContentDoneElement)
+
 // Hendlers
 
+// Отправка формы и отрисовка
 function handleSubmitForm (event) {
   event.preventDefault()
 
@@ -44,12 +47,11 @@ function handleSubmitForm (event) {
   const todo = new Desk(title, description, user, bgColor)
 
   data.push(todo)
-  console.log(data)
-
   render(data, listContentTodoElement)
   // formElement.reset()
 }
 
+// Перенос карточки в колонку Todo через выпадающее окно
 function hendleDropDeskTodo (event) {
 
   const button = event.target.closest('.dropdown-item')
@@ -76,6 +78,7 @@ function hendleDropDeskTodo (event) {
   }
 }
 
+// Перенос карточки в колонку Proggres через выпадающее окно
 function hendleDropDeskProggres (event) {
 
   const button = event.target.closest('.dropdown-item')
@@ -102,6 +105,7 @@ function hendleDropDeskProggres (event) {
   }
 }
 
+// Перенос карточки в колонку Done через выпадающее окно
 function hendleDropDeskDone (event) {
 
   const button = event.target.closest('.dropdown-item')
@@ -128,6 +132,7 @@ function hendleDropDeskDone (event) {
   }
 }
 
+// Удаление определенной карточки через Remove
 function hendleDeleteCard (event) {
   const button = event.target
   const role = button.role
@@ -153,15 +158,14 @@ function hendleDeleteCard (event) {
       dataDone = dataDone.filter((item) => item.id != deskID)
       render(dataDone, listContentDoneElement)
     }
-
   }
 }
 
+// Удаление все карточек в колонке Done
 function hendleDeleteAllCard () {
   dataDone.length = 0
   render(dataDone, listContentDoneElement)
 }
-
 
 // Constructors
 function Desk (title, description, user, bgColor) {
@@ -217,3 +221,24 @@ function render(collection, wrapper) {
   wrapper.innerHTML = templates
 }
 
+function getData () {
+  return JSON.parse(localStorage.getItem('data')) || []
+}
+
+function getDataProggres () {
+  return JSON.parse(localStorage.getItem('dataProggres')) || []
+}
+
+function getDataDone () {
+  return JSON.parse(localStorage.getItem('dataDone')) || []
+}
+
+function setData (source, source2, source3) {
+  localStorage.setItem('data', JSON.stringify(source))
+  localStorage.setItem('dataProggres', JSON.stringify(source2))
+  localStorage.setItem('dataDone', JSON.stringify(source3))
+}
+
+function handleBeforeUnload() {
+  setData(data, dataProggres, dataDone)
+}
