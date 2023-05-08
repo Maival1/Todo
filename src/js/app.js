@@ -16,6 +16,7 @@ const textareaListElement = document.querySelector('#textareaList')
 const userElement = document.querySelector('#user')
 const bgColorElement = document.querySelector('#bgColor')
 const buttonConfirmElement = document.querySelector('#confirmList')
+const todoMainElement = document.querySelector('#todoMain')
 
 
 
@@ -27,6 +28,10 @@ formElement.addEventListener('submit', handleSubmitForm)
 listContentTodoElement.addEventListener('click', hendleDropDeskTodo)
 listContentProggresElement.addEventListener('click', hendleDropDeskProggres)
 listContentDoneElement.addEventListener('click', hendleDropDeskDone)
+
+console.log(todoMainElement)
+
+todoMainElement.addEventListener('click', hendleDeleteCard)
 
 // Hendlers
 
@@ -124,6 +129,36 @@ function hendleDropDeskDone (event) {
   }
 }
 
+function hendleDeleteCard (event) {
+  const button = event.target
+  const role = button.role
+  console.log(role)
+  if (role == 'deleteCard') {
+    const desk = button.closest('.desk')
+    const deskID = desk.id
+    console.log(desk)
+    console.log(deskID)
+    const list = desk.closest('.list__content')
+    const listID = list.id
+    console.log(list)
+    console.log(listID)
+    if (listID == 'listContentTodo') {
+      data = data.filter((item) => item.id != deskID)
+      render(data, listContentTodoElement)
+    }
+    if (listID == 'listContentProggres') {
+      dataProggres = dataProggres.filter((item) => item.id != deskID)
+      render(dataProggres, listContentProggresElement)
+    }
+    if (listID == 'listContentDone') {
+      dataDone = dataDone.filter((item) => item.id != deskID)
+      render(dataDone, listContentDoneElement)
+    }
+
+  }
+}
+
+
 // Constructors
 function Desk (title, description, user, bgColor) {
 
@@ -143,26 +178,26 @@ function buildDeskTemplate (data) {
 
   return `
   <div id="${data.id}" class="desk ${data.bgColor}">
-  <div class="desk__head d-flex">
-    <div class="desk__title">${data.title}</div>
-    <time class="desk__time">${time}</time>
-  </div>
-  <p class="desk__text">${data.description}</p>
-  <div class="desk__user">${data.user}<img></div>
-  <div class="desk__navigator d-flex">
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <div class="desk__head d-flex">
+      <div class="desk__title">${data.title}</div>
+      <time class="desk__time">${time}</time>
+    </div>
+    <p class="desk__text">${data.description}</p>
+    <div class="desk__user">${data.user}<img></div>
+    <div class="desk__navigator d-flex">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         Dropdown button
-      </button>
-      <ul class="dropdown-menu">
-        <li><button class="dropdown-item todo-btn" value="todo"  >todo</button></li>
+        </button>
+        <ul class="dropdown-menu">
+        <li><button class="dropdown-item todo-btn" value="todo">todo</button></li>
         <li><button class="dropdown-item progress-btn" value="progress">in progress</button></li>
         <li><button class="dropdown-item done-btn" value="done">done</button></li>
+      </div>
+      <button class="btn btn-primary">Edit</button>
+      <button class="btn btn-danger" role="deleteCard">Remove</button>
     </div>
-    <button class="btn btn-primary">Edit</button>
-    <button class="btn btn-danger">Remove</button>
-  </div>
-</div>`
+  </div>`
 }
 
 // Helpers
