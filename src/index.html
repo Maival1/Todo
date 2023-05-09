@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./scss/app.scss">
-  <script src="./js/app.js" type="module"></script>
+  <script src="./js/main.js" type="module"></script>
   <title>To Do</title>
 </head>
 
@@ -15,7 +15,7 @@
   <main class="main">
     <section class="container-fluid">
 
-      <div class="todo">
+      <div id="todo" class="todo">
 
         <div class="todo__head d-flex justify-content-between">
           <h1 class="todo__logo m-4">To Do</h1>
@@ -28,42 +28,32 @@
           <div class="list m-4 border border-primary border-3 rounded">
             <div class="list__head d-flex justify-content-between border-bottom">
               <h2 class="m-3">To Do</h2>
-              <p class="m-3 mt-4">count 0</p>
+              <p class="m-3 mt-4">count: <span id="countTodo">0</span></p>
             </div>
-
             <div id="listContentTodo" class="list__content">
-
-
             </div> <!--list__content-->
-
             <div class="list__footer">
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">+
                 Add</button>
-              <!-- <button class="bnt list__delete-all">delete all</button> -->
             </div>
           </div>
 
           <div class="list m-4 border border-primary border-3 rounded">
-            <div class="list__head d-flex justify-content-between border-bottom">
+            <div class="list__head-proggres d-flex justify-content-between border-bottom">
               <h2 class="m-3">in proggres</h2>
-              <p class="m-3 mt-4">count 0</p>
+              <p class="m-3 mt-4">count: <span id="coontProggres">0</span></p>
             </div>
-            <div id="listContentProggres"  class="list__content"></div>
-            <div class="list__footer">
-              <!-- <button class="btn list__add">+ add</button> -->
-              <!-- <button class="bnt list__delete-all">delete all</button> -->
-            </div>
+            <div id="listContentProggres" class="list__content"></div>
           </div>
 
           <div class="list m-4 border border-primary border-3 rounded">
-            <div class="list__head d-flex justify-content-between border-bottom">
+            <div class="list__head-done d-flex justify-content-between border-bottom">
               <h2 class="m-3">Done</h2>
-              <p class="m-3 mt-4">count 0</p>
+              <p class="m-3 mt-4">count: <span id="countDone">0</span></p>
             </div>
             <div id="listContentDone" class="list__content"></div>
             <div class="list__footer">
-              <!-- <button class="btn list__add">+ add</button> -->
-              <button id="deleteAll" class="bnt list__delete-all">delete all</button>
+              <button id="deleteAll" class="btn btn-dark list__delete-all">delete all</button>
             </div>
           </div>
 
@@ -106,8 +96,8 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cansel</button>
-                <button id="confirmList" class="btn btn-default btn-success" type="submit" name="submit"
-                  value="Submit" data-bs-dismiss="modal">Save</button>
+                <button id="confirmList" class="btn btn-default btn-success" type="submit" name="submit" value="Submit"
+                  data-bs-dismiss="modal">Save</button>
               </div>
             </form>
           </div>
@@ -135,7 +125,7 @@
                 </div>
                 <div class="mb-3">
                   <select id="user2" class="form-select" aria-label="Default select example">
-                    <option >Chose user</option>
+                    <option>Chose user</option>
                     <option value="user1">User 1</option>
                     <option value="user2">User 2</option>
                     <option value="user3">User 3</option>
@@ -143,16 +133,18 @@
                 </div>
                 <div class="mb-3">
                   <select id="bgColor2" class="form-select" aria-label="Default select example">
-                    <option class=".bg-danger-subtle" value="bg-danger-subtle">Chose background danger-subtle</option>
-                    <option class=".bg-warning" value="bg-warning">Chose background warning</option>
-                    <option class=".bg-success" value="bg-success">Chose background success</option>
+                    <option id="pink" class="bg-danger-subtle" value="bg-danger-subtle">Chose background danger-subtle
+                    </option>
+                    <option id="yellow" class="bg-warning" value="bg-warning">Chose background warning</option>
+                    <option id="green" class="bg-success" value="bg-success">Chose background success</option>
                   </select>
                 </div>
               </div>
               <div class="modal-footer">
+                <p id="findID" class=""></p>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cansel</button>
-                <button id="confirmList2" class="btn btn-default btn-success" type="submit" name="submit"
-                  value="Submit" data-bs-dismiss="modal">Save</button>
+                <button id="confirmList2" class="btn btn-default btn-success" type="submit" name="submit" value="Submit"
+                  data-bs-dismiss="modal">Save</button>
               </div>
             </form>
           </div>
