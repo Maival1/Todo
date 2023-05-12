@@ -28,7 +28,7 @@
           <div class="list m-4 border border-primary border-3 rounded">
             <div class="list__head d-flex justify-content-between border-bottom">
               <h2 class="m-3">To Do</h2>
-              <p class="m-3 mt-4">count: <span id="countTodo">0</span></p>
+              <p id="countTodo" class="m-3 mt-4"></p>
             </div>
             <div id="listContentTodo" class="list__content">
             </div> <!--list__content-->
@@ -39,17 +39,17 @@
           </div>
 
           <div class="list m-4 border border-primary border-3 rounded">
-            <div class="list__head-proggres d-flex justify-content-between border-bottom">
+            <div class="list__head d-flex justify-content-between border-bottom">
               <h2 class="m-3">in proggres</h2>
-              <p class="m-3 mt-4">count: <span id="coontProggres">0</span></p>
+              <p id="countProggres" class="m-3 mt-4"></p>
             </div>
             <div id="listContentProggres" class="list__content"></div>
           </div>
 
           <div class="list m-4 border border-primary border-3 rounded">
-            <div class="list__head-done d-flex justify-content-between border-bottom">
+            <div class="list__head d-flex justify-content-between border-bottom">
               <h2 class="m-3">Done</h2>
-              <p class="m-3 mt-4">count: <span id="countDone">0</span></p>
+              <p id="countDone" class="m-3 mt-4"></p>
             </div>
             <div id="listContentDone" class="list__content"></div>
             <div class="list__footer">
@@ -81,16 +81,19 @@
                 <div class="mb-3">
                   <select id="user" class="form-select" aria-label="Default select example">
                     <option selected>Chose user</option>
-                    <option value="user1">User 1</option>
-                    <option value="user2">User 2</option>
-                    <option value="user3">User 3</option>
+                    <option id="userOption1" value=""></option>
+                    <option id="userOption2" value=""></option>
+                    <option id="userOption3" value=""></option>
                   </select>
                 </div>
                 <div class="mb-3">
                   <select id="bgColor" class="form-select" aria-label="Default select example">
-                    <option class=".bg-danger-subtle" value="bg-danger-subtle">Chose background danger-subtle</option>
-                    <option class=".bg-warning" value="bg-warning">Chose background warning</option>
-                    <option class=".bg-success" value="bg-success">Chose background success</option>
+                    <option id="" class="bg-secondary-subtle" value="bg-secondary-subtle">Chose background gray</option>
+                    <option id="" class="bg-danger-subtle" value="bg-danger-subtle">Chose background pink
+                    </option>
+                    <option id="" class="bg-warning" value="bg-warning">Chose background orange</option>
+                    <option id="" class="bg-success" value="bg-success">Chose background green</option>
+                    <option id="" class="bg-success-subtle" value="bg-success-subtle">Chose light green</option>
                   </select>
                 </div>
               </div>
@@ -125,18 +128,19 @@
                 </div>
                 <div class="mb-3">
                   <select id="user2" class="form-select" aria-label="Default select example">
-                    <option>Chose user</option>
-                    <option value="user1">User 1</option>
-                    <option value="user2">User 2</option>
-                    <option value="user3">User 3</option>
+                    <option id="user1Option1" value=""></option>
+                    <option id="user2Option2" value=""></option>
+                    <option id="user3Option3" value=""></option>
                   </select>
                 </div>
                 <div class="mb-3">
                   <select id="bgColor2" class="form-select" aria-label="Default select example">
-                    <option id="pink" class="bg-danger-subtle" value="bg-danger-subtle">Chose background danger-subtle
+                    <option id="gray" class="bg-secondary-subtle" value="bg-secondary-subtle">Chose background gray</option>
+                    <option id="pink" class="bg-danger-subtle" value="bg-danger-subtle">Chose background pink
                     </option>
-                    <option id="yellow" class="bg-warning" value="bg-warning">Chose background warning</option>
-                    <option id="green" class="bg-success" value="bg-success">Chose background success</option>
+                    <option id="yellow" class="bg-warning" value="bg-warning">Chose background orange</option>
+                    <option id="green" class="bg-success" value="bg-success">Chose background green</option>
+                    <option id="smGreen" class="bg-success-subtle" value="bg-success-subtle">Chose light green</option>
                   </select>
                 </div>
               </div>

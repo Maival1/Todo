@@ -1,10 +1,6 @@
 import { Modal } from 'bootstrap'
 
 
-// Server data
-
-
-
 // Variables
 
 let data = getData()
@@ -20,6 +16,53 @@ const bgColorElement = document.querySelector('#bgColor')
 const todoElement = document.querySelector('#todo')
 const buttonDeleteAll = document.querySelector('#deleteAll')
 const exampleModal = document.getElementById('exampleModal2')
+const user1 = document.querySelector('#userOption1') // User for first modal
+const user2 = document.querySelector('#userOption2') // User for first modal
+const user3 = document.querySelector('#userOption3') // User for first modal
+const user1SecondElement = document.querySelector('#user1Option1') // User for second modal
+const user2SecondElement = document.querySelector('#user2Option2') // User for second modal
+const user3SecondElement = document.querySelector('#user3Option3') // User for second modal
+const countTodoElement = document.querySelector('#countTodo')
+const countProggresElement = document.querySelector('#countProggres')
+const countDoneElement = document.querySelector('#countDone')
+
+
+// Server data
+
+const users = async (urls) => {
+  const data = await fetch(urls)
+
+  if(!data.ok) {
+    console.log(data.status)
+  }
+
+  return await data.json()
+}
+
+users('https://jsonplaceholder.typicode.com/users/')
+.then(data => {
+  const filterUser = data.filter(user => [1, 2, 3].includes(user.id))
+  const namesUser = filterUser.map(user => user.name)
+
+  // Users for first modal
+
+  user1.textContent = namesUser[0]
+  user1.value = namesUser[0]
+  user2.textContent = namesUser[1]
+  user2.value = namesUser[1]
+  user3.textContent = namesUser[2]
+  user3.value = namesUser[2]
+
+  // Users for second modal
+
+  user1SecondElement.textContent = namesUser[0]
+  user1SecondElement.value = namesUser[0]
+  user2SecondElement.textContent = namesUser[1]
+  user2SecondElement.value = namesUser[1]
+  user3SecondElement.textContent = namesUser[2]
+  user3SecondElement.value = namesUser[2]
+
+})
 
 // Listeners
 
@@ -34,6 +77,7 @@ exampleModal.addEventListener('show.bs.modal', hendleEditForm) // Открыти
 // Init
 
 render(data, listContentTodoElement, listContentProggresElement, listContentDoneElement)
+renderCount(data, countTodoElement, countProggresElement, countDoneElement)
 
 // Hendlers
 
@@ -52,7 +96,6 @@ function hendleEditForm(event) {
   const modalTextArea = exampleModal.querySelector('#textareaList2')
   const modalBgColor = exampleModal.querySelector('#bgColor2')
   const modalUser = exampleModal.querySelector('#user2')
-  const findIdElement = exampleModal.querySelector('#findID')
 
   modalTitle.textContent = `New message to ${recipient}`
   modalBodyInput.value = recipient
@@ -62,7 +105,7 @@ function hendleEditForm(event) {
   const deskID = desk.id
   // Отрисовка имеющихся значений в форме через edit
   const deskOpen = data.find((card) => card.id == deskID)
-  // Делаем selected в форме edit
+  // Делаем selected BgColor в форме edit
   for (let i = 0; i < modalBgColor.options.length; i++) {
     const option = modalBgColor.options[i]
     if (option.value === deskOpen.bgColor) {
@@ -70,16 +113,24 @@ function hendleEditForm(event) {
       break
     }
   }
+  // Делаем selected Users в форме edit
+  for (let i = 0; i < modalUser.options.length; i++) {
+    const option = modalUser.options[i]
+    if (option.value === deskOpen.user) {
+      option.selected = true
+      break
+    }
+  }
+
   // Передаем данные в Textarea
   modalTextArea.textContent = deskOpen.description
 
+
+  // Делаем отправку формы с переданными и измененными данными
   formChangeElement.addEventListener('submit', (event) => {
     event.preventDefault()
 
-  const id = findIdElement.value
-  console.log(id)
   const title = modalBodyInput.value
-  console.log(title)
   const description = modalTextArea.value
   const user = modalUser.value
   const bgColor = modalBgColor.value
@@ -87,23 +138,24 @@ function hendleEditForm(event) {
   const newData = {title, description, user, bgColor}
 
   const todoIndex = data.findIndex(todo => todo.id == deskID)
-  console.log(todoIndex)
-  console.log(newData)
+
   if (todoIndex >= 0) {
     // создаем новый объект, используя старый объект и новые данные
     const updatedTodo = { ...data[todoIndex], ...newData }
 
-    // заменяем старый объект на обновленный в массиве todos
+    // заменяем старый объект на обновленный в массиве data
     data.splice(todoIndex, 1, updatedTodo)
     render(data, listContentTodoElement, listContentProggresElement, listContentDoneElement)
+    renderCount(data, countTodoElement, countProggresElement, countDoneElement)
   }
-
   })
 }
 
 
 function handleSubmitForm(event) {
   event.preventDefault()
+
+  console.log(users)
 
   const title = inputListElement.value
   const description = textareaListElement.value
@@ -113,6 +165,7 @@ function handleSubmitForm(event) {
 
   data.push(todo)
   render(data, listContentTodoElement, listContentProggresElement, listContentDoneElement)
+  renderCount(data, countTodoElement, countProggresElement, countDoneElement)
   formElement.reset()
 }
 
@@ -126,12 +179,14 @@ function changeStatus(event) {
     let datas = data.find((card) => card.id == id)
     datas.status = 'todo'
     render(data, listContentTodoElement, listContentProggresElement, listContentDoneElement)
+    renderCount(data, countTodoElement, countProggresElement, countDoneElement)
   }
   if (selectedStatus == 'progress') {
     if (proggressCards.length <= 5) {
       let datas = data.find((card) => card.id == id)
       datas.status = 'progress'
       render(data, listContentTodoElement, listContentProggresElement, listContentDoneElement)
+      renderCount(data, countTodoElement, countProggresElement, countDoneElement)
     } else {
       alert('В данной колонке может быть только 6 дел((')
     }
@@ -141,6 +196,7 @@ function changeStatus(event) {
     let datas = data.find((card) => card.id == id)
     datas.status = 'done'
     render(data, listContentTodoElement, listContentProggresElement, listContentDoneElement)
+    renderCount(data, countTodoElement, countProggresElement, countDoneElement)
   }
 }
 
@@ -153,6 +209,7 @@ function hendleDeleteCard(event) {
     const deskID = desk.id
     data = data.filter((item) => item.id != deskID)
     render(data, listContentTodoElement, listContentProggresElement, listContentDoneElement)
+    renderCount(data, countTodoElement, countProggresElement, countDoneElement)
   }
 }
 
@@ -166,6 +223,7 @@ function hendleDeleteAllCard() {
     }
   })
   render(data, listContentTodoElement, listContentProggresElement, listContentDoneElement)
+  renderCount(data, countTodoElement, countProggresElement, countDoneElement)
 }
 
 
@@ -188,9 +246,9 @@ function Desk(title, description, user, bgColor) {
 
 function buildDeskTemplate(data) {
   const time = new Date(data.date).toLocaleString()
-  const statusTodo = data.status == 'todo' ? 'selected' : ''
-  const statusProgress = data.status == 'progress' ? 'selected' : ''
-  const statusDone = data.status == 'done' ? 'selected' : ''
+  const statusTodo = data.status == 'todo' //? 'selected' : ''
+  const statusProgress = data.status == 'progress' //? 'selected' : ''
+  const statusDone = data.status == 'done' //? 'selected' : ''
   return `
   <div id="${data.id}" class="desk ${data.bgColor}">
     <div class="desk__head d-flex">
@@ -201,6 +259,7 @@ function buildDeskTemplate(data) {
     <div class="desk__user">${data.user}<img></div>
     <div class="desk__navigator d-flex">
     <select class="form-select form-select-lg" data-role="select">
+      <option selected>Chose Collumn</option>
       <option value="todo" ${statusTodo}>Todo</option>
       <option value="progress" ${statusProgress}>In progress</option>
       <option value="done" ${statusDone}>Done</option>
@@ -211,7 +270,11 @@ function buildDeskTemplate(data) {
   </div>`
 }
 
-
+function buildCountersTemplate (count) {
+  return `
+    <span class="ms-2">Count: ${count}</span>
+  `
+}
 
 // Helpers
 
@@ -238,6 +301,36 @@ function render(data, wrapper, wrapper2, wrapper3) {
   wrapper.innerHTML = templates
   wrapper2.innerHTML = templatesProggres
   wrapper3.innerHTML = templatesDone
+}
+
+function renderCount (data, wrapper, wrapper2, wrapper3) {
+let countTodo = 0
+let countProggres = 0
+let countDone = 0
+
+data.forEach((item) => {
+  if (item.status == 'todo') {
+    countTodo++
+  }
+
+  if (item.status == 'progress') {
+    countProggres++
+  }
+
+  if (item.status == 'done') {
+    countDone++
+  }
+})
+
+const templatesTodo = buildCountersTemplate(countTodo)
+const templatesProggres = buildCountersTemplate(countProggres)
+const templatesDone = buildCountersTemplate(countDone)
+
+
+wrapper.innerHTML = templatesTodo
+wrapper2.innerHTML = templatesProggres
+wrapper3.innerHTML = templatesDone
+
 }
 
 
