@@ -1,5 +1,4 @@
-import { Modal } from 'bootstrap'
-
+import * as bootstrap from 'bootstrap' // По другому модалки не работают
 
 // Variables
 
@@ -16,6 +15,7 @@ const bgColorElement = document.querySelector('#bgColor')
 const todoElement = document.querySelector('#todo')
 const buttonDeleteAll = document.querySelector('#deleteAll')
 const exampleModal = document.getElementById('exampleModal2')
+const modalProggresElement = document.querySelector('#modalProggres')
 const user1Element = document.querySelector('#userOption1') // User for first modal
 const user2Element = document.querySelector('#userOption2') // User for first modal
 const user3Element = document.querySelector('#userOption3') // User for first modal
@@ -26,6 +26,8 @@ const countTodoElement = document.querySelector('#countTodo')
 const countProggresElement = document.querySelector('#countProggres')
 const countDoneElement = document.querySelector('#countDone')
 
+// const myModal = new Modal(document.getElementById('#modalProggres')) // Устаревший способ
+const Proggresmodal = new bootstrap.Modal(modalProggresElement)
 
 // Server data
 
@@ -186,7 +188,7 @@ function changeStatus(event) {
       render(data, listContentTodoElement, listContentProggresElement, listContentDoneElement)
       renderCount(data, countTodoElement, countProggresElement, countDoneElement)
     } else {
-      alert('В данной колонке может быть только 6 дел((')
+      Proggresmodal.show() // РАБОТАЕТ ТОЛЬКО ОДИН РАЗ
     }
 
   }
