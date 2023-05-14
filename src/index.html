@@ -14,148 +14,149 @@
 
   <main class="main">
     <section class="container-fluid">
-
       <div id="todo" class="todo">
 
-        <div class="todo__head d-flex justify-content-between">
+        <div class="todo__head d-flex justify-content-between mt-2 rounded-4">
           <h1 class="todo__logo m-4">To Do</h1>
           <time class="time m-4">time</time>
         </div> <!-- todo__head -->
 
-        <div id="todoMain" class="todo__content d-flex">
+        <div id="todoMain" class="todo__content d-flex container">
 
-          <div id="todoContent" class="todo__content-wrapper d-flex"></div>
-          <div class="list m-4 border border-primary border-3 rounded">
-            <div class="list__head d-flex justify-content-between border-bottom">
-              <h2 class="m-3">To Do</h2>
-              <p id="countTodo" class="m-3 mt-4"></p>
+          <div class="list m-4 border border-primary border-3 rounded-4 d-flex flex-column justify-content-between col-3">
+            <div class="">
+              <div class="list__head d-flex justify-content-between border-bottom border-primary">
+                <h2 class="m-3">To Do</h2>
+                <p id="countTodo" class="m-3 mt-4"></p>
+              </div>
+              <div id="listContentTodo" class="list__content"></div>
             </div>
-            <div id="listContentTodo" class="list__content">
-            </div> <!--list__content-->
-            <div class="list__footer">
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">+
-                Add</button>
-            </div>
-          </div>
 
-          <div class="list m-4 border border-primary border-3 rounded">
-            <div class="list__head d-flex justify-content-between border-bottom">
-              <h2 class="m-3">in proggres</h2>
+            <div class="list__footer d-grid p-1 ">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Add</button>
+            </div>
+          </div> <!-- list -->
+
+          <div class="list m-4 border border-primary border-3 rounded-4 col-3">
+            <div class="list__head d-flex justify-content-between border-bottom border-primary">
+              <h2 class="m-3">In Proggres</h2>
               <p id="countProggres" class="m-3 mt-4"></p>
             </div>
             <div id="listContentProggres" class="list__content"></div>
-          </div>
+          </div> <!-- list -->
 
-          <div class="list m-4 border border-primary border-3 rounded">
-            <div class="list__head d-flex justify-content-between border-bottom">
+          <div class="list m-4 border border-primary border-3 rounded-4 d-flex flex-column justify-content-between col-3">
+            <div class="">
+              <div class="list__head d-flex justify-content-between border-bottom border-primary">
               <h2 class="m-3">Done</h2>
               <p id="countDone" class="m-3 mt-4"></p>
             </div>
             <div id="listContentDone" class="list__content"></div>
-            <div class="list__footer">
-              <button id="deleteAll" class="btn btn-dark list__delete-all">delete all</button>
-            </div>
           </div>
+            <div class="list__footer d-grid p-1">
+              <button id="deleteAll" class="btn btn-dark  list__delete-all">Delete All</button>
+            </div>
+          </div> <!-- list -->
 
         </div> <!-- todo__content -->
       </div> <!-- todo -->
-
-
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Add desk</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form id="form" action="#">
-              <div class="modal-body">
-                <div class="mb-3">
-                  <label for="submit" class="col-form-label">Title</label>
-                  <input id="inputList" type="text" class="form-control">
-                </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Message:</label>
-                  <textarea id="textareaList" class="form-control"></textarea>
-                </div>
-                <div class="mb-3">
-                  <select id="user" class="form-select" aria-label="Default select example">
-                    <option selected>Chose user</option>
-                    <option id="userOption1" value=""></option>
-                    <option id="userOption2" value=""></option>
-                    <option id="userOption3" value=""></option>
-                  </select>
-                </div>
-                <div class="mb-3">
-                  <select id="bgColor" class="form-select" aria-label="Default select example">
-                    <option id="" class="bg-secondary-subtle" value="bg-secondary-subtle">Chose background gray</option>
-                    <option id="" class="bg-danger-subtle" value="bg-danger-subtle">Chose background pink
-                    </option>
-                    <option id="" class="bg-warning" value="bg-warning">Chose background orange</option>
-                    <option id="" class="bg-success" value="bg-success">Chose background green</option>
-                    <option id="" class="bg-success-subtle" value="bg-success-subtle">Chose light green</option>
-                  </select>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cansel</button>
-                <button id="confirmList" class="btn btn-default btn-success" type="submit" name="submit" value="Submit"
-                  data-bs-dismiss="modal">Save</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Modal for edit-->
-      <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel2">Add desk</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form id="form2" action="#">
-              <div class="modal-body">
-                <div class="mb-3">
-                  <label for="submit" class="col-form-label">Title</label>
-                  <input id="inputList2" type="text" class="form-control">
-                </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Message:</label>
-                  <textarea id="textareaList2" class="form-control"></textarea>
-                </div>
-                <div class="mb-3">
-                  <select id="user2" class="form-select" aria-label="Default select example">
-                    <option id="user1Option1" value=""></option>
-                    <option id="user2Option2" value=""></option>
-                    <option id="user3Option3" value=""></option>
-                  </select>
-                </div>
-                <div class="mb-3">
-                  <select id="bgColor2" class="form-select" aria-label="Default select example">
-                    <option id="gray" class="bg-secondary-subtle" value="bg-secondary-subtle">Chose background gray</option>
-                    <option id="pink" class="bg-danger-subtle" value="bg-danger-subtle">Chose background pink
-                    </option>
-                    <option id="yellow" class="bg-warning" value="bg-warning">Chose background orange</option>
-                    <option id="green" class="bg-success" value="bg-success">Chose background green</option>
-                    <option id="smGreen" class="bg-success-subtle" value="bg-success-subtle">Chose light green</option>
-                  </select>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <p id="findID" class=""></p>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cansel</button>
-                <button id="confirmList2" class="btn btn-default btn-success" type="submit" name="submit" value="Submit"
-                  data-bs-dismiss="modal">Save</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
     </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Add desk</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="form" action="#">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="submit" class="col-form-label">Title</label>
+                <input id="inputList" type="text" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Message:</label>
+                <textarea id="textareaList" class="form-control"></textarea>
+              </div>
+              <div class="mb-3">
+                <select id="user" class="form-select" aria-label="Default select example">
+                  <option selected>Chose user</option>
+                  <option id="userOption1" value=""></option>
+                  <option id="userOption2" value=""></option>
+                  <option id="userOption3" value=""></option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <select id="bgColor" class="form-select" aria-label="Default select example">
+                  <option id="" class="bg-secondary-subtle" value="bg-secondary-subtle">Chose background gray</option>
+                  <option id="" class="bg-danger-subtle" value="bg-danger-subtle">Chose background pink
+                  </option>
+                  <option id="" class="bg-warning" value="bg-warning">Chose background orange</option>
+                  <option id="" class="bg-success" value="bg-success">Chose background green</option>
+                  <option id="" class="bg-success-subtle" value="bg-success-subtle">Chose light green</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cansel</button>
+              <button id="confirmList" class="btn btn-default btn-success" type="submit" name="submit" value="Submit"
+                data-bs-dismiss="modal">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Modal for edit-->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel2">Add desk</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="form2" action="#">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="submit" class="col-form-label">Title</label>
+                <input id="inputList2" type="text" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Message:</label>
+                <textarea id="textareaList2" class="form-control"></textarea>
+              </div>
+              <div class="mb-3">
+                <select id="user2" class="form-select" aria-label="Default select example">
+                  <option id="user1Option1" value=""></option>
+                  <option id="user2Option2" value=""></option>
+                  <option id="user3Option3" value=""></option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <select id="bgColor2" class="form-select" aria-label="Default select example">
+                  <option id="gray" class="bg-secondary-subtle" value="bg-secondary-subtle">Chose background gray
+                  </option>
+                  <option id="pink" class="bg-danger-subtle" value="bg-danger-subtle">Chose background pink
+                  </option>
+                  <option id="yellow" class="bg-warning" value="bg-warning">Chose background orange</option>
+                  <option id="green" class="bg-success" value="bg-success">Chose background green</option>
+                  <option id="smGreen" class="bg-success-subtle" value="bg-success-subtle">Chose light green</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <p id="findID" class=""></p>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cansel</button>
+              <button id="confirmList2" class="btn btn-default btn-success" type="submit" name="submit" value="Submit"
+                data-bs-dismiss="modal">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </main>
 
 </body>

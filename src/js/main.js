@@ -16,9 +16,9 @@ const bgColorElement = document.querySelector('#bgColor')
 const todoElement = document.querySelector('#todo')
 const buttonDeleteAll = document.querySelector('#deleteAll')
 const exampleModal = document.getElementById('exampleModal2')
-const user1 = document.querySelector('#userOption1') // User for first modal
-const user2 = document.querySelector('#userOption2') // User for first modal
-const user3 = document.querySelector('#userOption3') // User for first modal
+const user1Element = document.querySelector('#userOption1') // User for first modal
+const user2Element = document.querySelector('#userOption2') // User for first modal
+const user3Element = document.querySelector('#userOption3') // User for first modal
 const user1SecondElement = document.querySelector('#user1Option1') // User for second modal
 const user2SecondElement = document.querySelector('#user2Option2') // User for second modal
 const user3SecondElement = document.querySelector('#user3Option3') // User for second modal
@@ -46,12 +46,12 @@ users('https://jsonplaceholder.typicode.com/users/')
 
   // Users for first modal
 
-  user1.textContent = namesUser[0]
-  user1.value = namesUser[0]
-  user2.textContent = namesUser[1]
-  user2.value = namesUser[1]
-  user3.textContent = namesUser[2]
-  user3.value = namesUser[2]
+  user1Element.textContent = namesUser[0]
+  user1Element.value = namesUser[0]
+  user2Element.textContent = namesUser[1]
+  user2Element.value = namesUser[1]
+  user3Element.textContent = namesUser[2]
+  user3Element.value = namesUser[2]
 
   // Users for second modal
 
@@ -81,7 +81,6 @@ renderCount(data, countTodoElement, countProggresElement, countDoneElement)
 
 // Hendlers
 
-
 // Открытие формы через Edit
 function hendleEditForm(event) {
   const button = event.relatedTarget
@@ -101,30 +100,29 @@ function hendleEditForm(event) {
   modalBodyInput.value = recipient
 
   // Получение нужной карточки
-  const desk = button.closest('.desk')
-  const deskID = desk.id
+  const card = button.closest('.card')
+  const cardID = card.id
   // Отрисовка имеющихся значений в форме через edit
-  const deskOpen = data.find((card) => card.id == deskID)
+  const cardOpen = data.find((card) => card.id == cardID)
   // Делаем selected BgColor в форме edit
   for (let i = 0; i < modalBgColor.options.length; i++) {
     const option = modalBgColor.options[i]
-    if (option.value === deskOpen.bgColor) {
+    if (option.value === cardOpen.bgColor) {
       option.selected = true
       break
     }
   }
-  // Делаем selected Users в форме edit
+  // Делаем selected Users в форме через edit
   for (let i = 0; i < modalUser.options.length; i++) {
     const option = modalUser.options[i]
-    if (option.value === deskOpen.user) {
+    if (option.value === cardOpen.user) {
       option.selected = true
       break
     }
   }
 
   // Передаем данные в Textarea
-  modalTextArea.textContent = deskOpen.description
-
+  modalTextArea.textContent = cardOpen.description
 
   // Делаем отправку формы с переданными и измененными данными
   formChangeElement.addEventListener('submit', (event) => {
@@ -137,7 +135,7 @@ function hendleEditForm(event) {
 
   const newData = {title, description, user, bgColor}
 
-  const todoIndex = data.findIndex(todo => todo.id == deskID)
+  const todoIndex = data.findIndex(todo => todo.id == cardID)
 
   if (todoIndex >= 0) {
     // создаем новый объект, используя старый объект и новые данные
@@ -170,7 +168,7 @@ function handleSubmitForm(event) {
 }
 
 function changeStatus(event) {
-  const card = event.target.closest('.desk')
+  const card = event.target.closest('.card')
   const selectedStatus = event.target.value
   const id = card.id
   const proggressCards = data.filter(card => card.status === 'progress')
@@ -205,9 +203,9 @@ function hendleDeleteCard(event) {
   const button = event.target
   const role = button.role
   if (role == 'deleteCard') {
-    const desk = button.closest('.desk')
-    const deskID = desk.id
-    data = data.filter((item) => item.id != deskID)
+    const card = button.closest('.card')
+    const cardID = card.id
+    data = data.filter((item) => item.id != cardID)
     render(data, listContentTodoElement, listContentProggresElement, listContentDoneElement)
     renderCount(data, countTodoElement, countProggresElement, countDoneElement)
   }
@@ -250,14 +248,14 @@ function buildDeskTemplate(data) {
   const statusProgress = data.status == 'progress' //? 'selected' : ''
   const statusDone = data.status == 'done' //? 'selected' : ''
   return `
-  <div id="${data.id}" class="desk ${data.bgColor}">
-    <div class="desk__head d-flex">
-      <div class="desk__title">${data.title}</div>
-      <time class="desk__time">${time}</time>
+  <div id="${data.id}" class="card m-2 rounded-3 ${data.bgColor}">
+    <div class="card__head d-flex justify-content-between p-2">
+      <div class="card__title">${data.title}</div>
+      <time class="card__time">${time}</time>
     </div>
-    <p class="desk__text">${data.description}</p>
-    <div class="desk__user">${data.user}<img></div>
-    <div class="desk__navigator d-flex">
+    <p class="card__text mt-2 p-2">${data.description}</p>
+    <div class="card__user p-2">${data.user}<img></div>
+    <div class="card__navigator d-flex gap-1">
     <select class="form-select form-select-lg" data-role="select">
       <option selected>Chose Collumn</option>
       <option value="todo" ${statusTodo}>Todo</option>

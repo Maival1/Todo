@@ -1,4 +1,8 @@
 .list {
   width: 400px;
   background-color: $blue-100;
+
+  &__content {
+    min-height: 60vh;
+  }
 }
