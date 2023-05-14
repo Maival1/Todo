@@ -1,4 +1,5 @@
-import * as bootstrap from 'bootstrap' // По другому модалки не работают
+// import * as bootstrap from 'bootstrap'
+import { Modal } from 'bootstrap'
 
 // Variables
 
@@ -26,8 +27,8 @@ const countTodoElement = document.querySelector('#countTodo')
 const countProggresElement = document.querySelector('#countProggres')
 const countDoneElement = document.querySelector('#countDone')
 
-// const myModal = new Modal(document.getElementById('#modalProggres')) // Устаревший способ
-const Proggresmodal = new bootstrap.Modal(modalProggresElement)
+// const Proggresmodal = new bootstrap.Modal(modalProggresElement)
+const Proggresmodal = new Modal(modalProggresElement)
 
 // Server data
 
@@ -188,7 +189,9 @@ function changeStatus(event) {
       render(data, listContentTodoElement, listContentProggresElement, listContentDoneElement)
       renderCount(data, countTodoElement, countProggresElement, countDoneElement)
     } else {
-      Proggresmodal.show() // РАБОТАЕТ ТОЛЬКО ОДИН РАЗ
+      Proggresmodal.show()
+      render(data, listContentTodoElement, listContentProggresElement, listContentDoneElement)
+      renderCount(data, countTodoElement, countProggresElement, countDoneElement)
     }
 
   }
