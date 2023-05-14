@@ -15,8 +15,10 @@ const userElement = document.querySelector('#user')
 const bgColorElement = document.querySelector('#bgColor')
 const todoElement = document.querySelector('#todo')
 const buttonDeleteAll = document.querySelector('#deleteAll')
+const buttonModalDeleteAll = document.querySelector('#deleteAllCard')
 const exampleModal = document.getElementById('exampleModal2')
 const modalProggresElement = document.querySelector('#modalProggres')
+const modalDeleteAllElemnt = document.querySelector('#modalDelete')
 const user1Element = document.querySelector('#userOption1') // User for first modal
 const user2Element = document.querySelector('#userOption2') // User for first modal
 const user3Element = document.querySelector('#userOption3') // User for first modal
@@ -29,6 +31,7 @@ const countDoneElement = document.querySelector('#countDone')
 
 // const Proggresmodal = new bootstrap.Modal(modalProggresElement)
 const Proggresmodal = new Modal(modalProggresElement)
+const modalDeleteAll = new Modal(modalDeleteAllElemnt)
 
 // Server data
 
@@ -75,7 +78,7 @@ todoElement.addEventListener('click', hendleDeleteCard) // Удаление ка
 buttonDeleteAll.addEventListener('click', hendleDeleteAllCard) // Удаление всех карточек в Done
 window.addEventListener('beforeunload', handleBeforeUnload) // Вызов данных
 exampleModal.addEventListener('show.bs.modal', hendleEditForm) // Открытие формы через Edit
-
+buttonModalDeleteAll.addEventListener('click', modalDeleteAllDone)
 
 // Init
 
@@ -218,6 +221,11 @@ function hendleDeleteCard(event) {
 
 // Удаление все карточек в колонке Done
 function hendleDeleteAllCard() {
+  modalDeleteAll.show()
+
+}
+
+function modalDeleteAllDone () {
   const doneCards = data.filter(card => card.status === 'done')
   doneCards.forEach(card => {
     const index = data.indexOf(card)
