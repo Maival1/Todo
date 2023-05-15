@@ -1,0 +1,85 @@
+
+.time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  &__row {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+
+
+  &__hour,
+  &__minute,
+  &__second,
+  &__circle {
+    display: flex;
+    position: absolute;
+  }
+
+  &__hour,
+  &__hour-line {
+    width: 80px;
+    height: 80px;
+  }
+
+  &__minute,
+  &__minute-line {
+    width: 95px;
+    height: 95px;
+  }
+
+  &__second,
+  &__second-line {
+    width: 110px;
+    height: 110px;
+  }
+
+  &__circle,
+  &__circle-line {
+    width: 15px;
+    height: 15px;
+    background: black;
+    border-radius: 1rem;
+    z-index: 999;
+  }
+
+  &__hour-line,
+  &__minute-line,
+  &__second-line,
+  &__cricle-line {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  &__hour-line::before {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 40px;
+    background-color: rgba(214, 51, 132, 1);
+  }
+
+  &__minute-line::before {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 50px;
+    background-color: $purple-400;
+  }
+
+  &__second-line::before {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 75px;
+    background-color: black;
+  }
+
+}

@@ -26,6 +26,9 @@ const modalDeleteAllElemnt = document.querySelector('#modalDelete')
 const countTodoElement = document.querySelector('#countTodo')
 const countProgressElement = document.querySelector('#countProgress')
 const countDoneElement = document.querySelector('#countDone')
+const hourElement = document.querySelector('#hour')
+const minuteElement = document.querySelector('#minute')
+const secondElement = document.querySelector('#second')
 
 // const progressModal = new bootstrap.Modal(modalProgressElement)
 const progressModal = new Modal(modalProgressElement)
@@ -49,6 +52,20 @@ users('https://jsonplaceholder.typicode.com/users/')
   renderUsers(data, userElement)
   // Users for second modal
   renderUsers(data, user2Element)
+})
+
+// Time
+setInterval(() => {
+  const deg = 6
+  let day = new Date()
+
+  let hour = day.getHours() * 30
+  let min = day.getMinutes() * deg
+  let sec = day.getSeconds() * deg
+
+  hourElement.style.transform = `rotateZ(${(hour) + (min/12)}deg)`
+  minuteElement.style.transform = `rotateZ(${(min)}deg)`
+  secondElement.style.transform = `rotateZ(${(sec)}deg)`
 })
 
 render(data, listContentTodoElement, listContentProgressElement, listContentDoneElement)

@@ -1,0 +1,26 @@
+.star {
+  background: $purple-100;
+  width: 120px;
+  height: 120px;
+  position: relative;
+  text-align: center;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 120px;
+    width: 120px;
+    background: $purple-100;
+  }
+
+  &:before {
+    transform: rotate(30deg);
+  }
+
+  &:after {
+    transform: rotate(60deg);
+  }
+}

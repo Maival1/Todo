@@ -18,7 +18,26 @@
 
         <div class="todo__head d-flex justify-content-between mt-2 rounded-4">
           <h1 class="todo__logo m-4">To Do</h1>
-          <time class="time m-4">time</time>
+
+          <div class="time m-4 p-2">
+            <div class="star">
+            </div> <!-- star-->
+            <div class="time__row">
+              <div class="time__hour">
+                <div class="time__hour-line" id="hour"></div>
+              </div>
+              <div class="time__minute">
+                <div class="time__minute-line" id="minute"></div>
+              </div>
+              <div class="time__second">
+                <div class="time__second-line" id="second"></div>
+              </div>
+              <div class="time__circle">
+                <div class="time__cricle-line"></div>
+              </div>
+            </div>
+          </div> <!-- time -->
+
         </div> <!-- todo__head -->
 
         <div id="todoMain" class="todo__content d-flex container">
@@ -33,7 +52,7 @@
               <div id="listContentTodo" class="list__content"></div>
             </div>
 
-            <div class="list__footer d-grid p-1 ">
+            <div class="list__footer d-grid p-2 ">
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">+
                 Add</button>
             </div>
@@ -56,7 +75,7 @@
               </div>
               <div id="listContentDone" class="list__content"></div>
             </div>
-            <div class="list__footer d-grid p-1">
+            <div class="list__footer d-grid p-2">
               <button id="deleteAll" class="btn btn-dark  list__delete-all">Delete All</button>
             </div>
           </div> <!-- list -->
@@ -188,12 +207,13 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button id="deleteAllCard" type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            <button id="deleteAllCard" type="button" class="btn btn-primary" data-bs-dismiss="modal">YES</button>
           </div>
         </div>
       </div>
     </div>
   </main>
+
 
 </body>
 
