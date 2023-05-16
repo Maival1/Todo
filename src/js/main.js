@@ -142,7 +142,6 @@ function hendleSumbitEditForm (event) {
     data.splice(todoIndex, 1, updatedTodo)
     render(data, listContentTodoElement, listContentProgressElement, listContentDoneElement)
     renderCount(data, countTodoElement, countProgressElement, countDoneElement)
-    formChangeElement.removeEventListener('sumbit', sumbitForm2)
   }
 }
 
@@ -196,7 +195,7 @@ function changeStatus(event) {
 
 // Удаление определенной карточки через Remove
 function hendleDeleteCard(event) {
-  const button = event.target
+  const { target: button} = event
   const role = button.role
   if (role == 'deleteCard') {
     const card = button.closest('.card')
@@ -231,50 +230,79 @@ function handleBeforeUnload() {
 }
 
 
-// const cardDraggable = document.querySelectorAll('.card')
-
-// cardDraggable.forEach((item) => {
-//   item.addEventListener('dragstart', () => {
-//     console.log('ok')
-//   })
-// })
-
-// listContentTodoElement, listContentProgressElement, listContentDoneElement
 
 todoElement.addEventListener('dragstart', drag)
-// listContentTodoElement.addEventListener('dragover', dragTodo)
-// listContentProgressElement.addEventListener('dragover', dragProgress)
-// listContentDoneElement.addEventListener('dragover', dragDone)
+todoElement.addEventListener('dragend', dragEnd)
 
 
 function drag(event) {
   const card = event.target.closest('.card')
-  const cardDraggable = document.querySelectorAll('.card')
-  listContentTodoElement.addEventListener('dragover', (e) => {
-    e.preventDefault()
-    listContentTodoElement.append(card)
-  })
-  listContentProgressElement.addEventListener('dragover', (e) => {
-    e.preventDefault()
-    listContentProgressElement.append(card)
-  })
-  listContentDoneElement.addEventListener('dragover', (e) => {
-    e.preventDefault()
-    listContentDoneElement.append(card)
-  })
-
+  card.classList.add('dragging')
+  console.log(card)
 }
 
-// function dragTodo (event) {
-//   event.preventDefault()
-// }
+function dragEnd() {
+  const dragging = document.querySelector('.dragging')
+  dragging.classList.remove('dragging')
+  console.log(dragging)
+}
 
-// function dragProgress (event) {
-//   event.preventDefault()
-//   const cardDraggable = document.querySelectorAll('.card')
-//   listContentProgressElement.append(cardDraggable)
-// }
+listContentTodoElement.addEventListener('dragover', (e) => {
+  e.preventDefault()
+  const afterElement = getDraggingAfreElement(listContentTodoElement, e.clientY)
+  const dragging = document.querySelector('.dragging')
+  const cardId = dragging.id
+  let datas = data.find((card) => card.id == cardId)
+  datas.status = 'todo'
 
-// function dragDone (event) {
-//   event.preventDefault()
-// }
+  if (afterElement == null) {
+    listContentTodoElement.append(dragging)
+  } else {
+    listContentTodoElement.insertBefore(dragging, afterElement)
+  }
+})
+
+listContentProgressElement.addEventListener('dragover', (e) => {
+  e.preventDefault()
+  const afterElement = getDraggingAfreElement(listContentProgressElement, e.clientY)
+  const dragging = document.querySelector('.dragging')
+  const cardId = dragging.id
+  let datas = data.find((card) => card.id == cardId)
+  datas.status = 'progress'
+
+  if (afterElement == null) {
+    listContentProgressElement.append(dragging)
+  } else {
+    listContentProgressElement.insertBefore(dragging, afterElement)
+  }
+})
+
+listContentDoneElement.addEventListener('dragover', (e) => {
+  e.preventDefault()
+  const afterElement = getDraggingAfreElement(listContentDoneElement, e.clientY)
+  const dragging = document.querySelector('.dragging')
+  const cardId = dragging.id
+  let datas = data.find((card) => card.id == cardId)
+  datas.status = 'done'
+
+  if (afterElement == null) {
+    listContentDoneElement.append(dragging)
+  } else {
+    listContentDoneElement.insertBefore(dragging, afterElement)
+  }
+})
+
+function getDraggingAfreElement (container, y) {
+  const draggablElement = [...container.querySelectorAll('.card:not(.dragging)')]
+
+ return draggablElement.reduce((closest, child) => {
+    const box = child.getBoundingClientRect()
+    const offset = y - box.top - box.height / 2
+   if ( offset < 0 && offset > closest.offset) {
+    return { offset: offset, element: child}
+   } else {
+    return closest
+   }
+  }, { offset: Number.NEGATIVE_INFINITY }).element
+}
+
