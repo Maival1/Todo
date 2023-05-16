@@ -2,12 +2,10 @@
 
 @import "bootstrap/scss/bootstrap";
 
+@import "./reset";
 @import "./todo";
 @import "./star";
 @import "./time";
 @import "./list";
 
-body {
-  height: 100vh;
-  background: linear-gradient(90deg, rgba(111, 66, 193, 1) 0%, rgba(214, 51, 132, 1) 100%);
-}
+

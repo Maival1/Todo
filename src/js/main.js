@@ -229,7 +229,7 @@ function handleBeforeUnload() {
   setData(data)
 }
 
-
+// Недопиленный функционал !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 todoElement.addEventListener('dragstart', drag)
 todoElement.addEventListener('dragend', dragEnd)
