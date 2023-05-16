@@ -45,7 +45,7 @@ const modalDeleteAll = new Modal(modalDeleteAllElemnt)
 // Listeners
 
 formElement.addEventListener('submit', handleSubmitForm) // Добавление карточки
-todoElement.addEventListener('change', changeStatus) // Перенос в другую колонку через Select status
+todoElement.addEventListener('change', handleChangeStatus) // Перенос в другую колонку через Select status
 todoElement.addEventListener('click', hendleDeleteCard) // Удаление карточки через кнопку Remove
 buttonDeleteAll.addEventListener('click', hendleDeleteAllCard) // Вызов модалки после нажатие Delete All
 window.addEventListener('beforeunload', handleBeforeUnload) // Вызов данных
@@ -160,7 +160,7 @@ function handleSubmitForm(event) {
   formElement.reset()
 }
 
-function changeStatus(event) {
+function handleChangeStatus(event) {
   const card = event.target.closest('.card')
   const selectedStatus = event.target.value
   const id = card.id
