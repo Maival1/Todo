@@ -30,6 +30,13 @@ const hourElement = document.querySelector('#hour')
 const minuteElement = document.querySelector('#minute')
 const secondElement = document.querySelector('#second')
 
+const modalTitle = exampleModal.querySelector('.modal-title')
+const modalBodyInput = exampleModal.querySelector('.modal-body input')
+const modalTextArea = exampleModal.querySelector('#textareaList2')
+const modalBgColor = exampleModal.querySelector('#bgColor2')
+const modalUser = exampleModal.querySelector('#user2')
+const cardIdInput = exampleModal.querySelector('#card-id-input')
+
 // const progressModal = new bootstrap.Modal(modalProgressElement)
 const progressModal = new Modal(modalProgressElement)
 const modalDeleteAll = new Modal(modalDeleteAllElemnt)
@@ -44,15 +51,16 @@ buttonDeleteAll.addEventListener('click', hendleDeleteAllCard) // Вызов м�
 window.addEventListener('beforeunload', handleBeforeUnload) // Вызов данных
 exampleModal.addEventListener('show.bs.modal', hendleEditForm) // Открытие формы через Edit
 buttonModalDeleteAll.addEventListener('click', modalDeleteAllDone) // Удаляет все данные в Done после потверждения
+formChangeElement.addEventListener('submit', hendleSumbitEditForm)
 
 // Init
 users('https://jsonplaceholder.typicode.com/users/')
-.then(data => {
-  // Users for first modal
-  renderUsers(data, userElement)
-  // Users for second modal
-  renderUsers(data, user2Element)
-})
+  .then(data => {
+    // Users for first modal
+    renderUsers(data, userElement)
+    // Users for second modal
+    renderUsers(data, user2Element)
+  })
 
 // Time
 setInterval(() => {
@@ -63,7 +71,7 @@ setInterval(() => {
   let min = day.getMinutes() * deg
   let sec = day.getSeconds() * deg
 
-  hourElement.style.transform = `rotateZ(${(hour) + (min/12)}deg)`
+  hourElement.style.transform = `rotateZ(${(hour) + (min / 12)}deg)`
   minuteElement.style.transform = `rotateZ(${(min)}deg)`
   secondElement.style.transform = `rotateZ(${(sec)}deg)`
 })
@@ -73,8 +81,9 @@ renderCount(data, countTodoElement, countProgressElement, countDoneElement)
 
 // Hendlers
 
+
 // Открытие формы через Edit
-function hendleEditForm(event) {
+function hendleEditForm (event) {
   const button = event.relatedTarget
   // Extract info from data-bs-* attributes
   const recipient = button.getAttribute('data-bs-whatever')
@@ -82,20 +91,16 @@ function hendleEditForm(event) {
   // and then do the updating in a callback.
 
   // Update the modal's content.
-  const modalTitle = exampleModal.querySelector('.modal-title')
-  const modalBodyInput = exampleModal.querySelector('.modal-body input')
-  const modalTextArea = exampleModal.querySelector('#textareaList2')
-  const modalBgColor = exampleModal.querySelector('#bgColor2')
-  const modalUser = exampleModal.querySelector('#user2')
 
   modalTitle.textContent = `New message to ${recipient}`
   modalBodyInput.value = recipient
 
   // Получение нужной карточки
-  const card = button.closest('.card')
-  const cardID = card.id
+  const cardID = button.getAttribute('data-bs-card-id')
   // Отрисовка имеющихся значений в форме через edit
   const cardOpen = data.find((card) => card.id == cardID)
+  cardIdInput.value = cardID
+  console.log(cardID)
   // Делаем selected BgColor в форме edit
   for (let i = 0; i < modalBgColor.options.length; i++) {
     const option = modalBgColor.options[i]
@@ -114,17 +119,20 @@ function hendleEditForm(event) {
   }
 
   // Передаем данные в Textarea
-  modalTextArea.textContent = cardOpen.description
+  modalTextArea.value = cardOpen.description
   // Делаем отправку формы с переданными и измененными данными
-  formChangeElement.addEventListener('submit', (event) => {
-    event.preventDefault()
+}
 
+function hendleSumbitEditForm (event) {
+  event.preventDefault()
+
+  const cardID = cardIdInput.value
   const title = modalBodyInput.value
   const description = modalTextArea.value
   const user = modalUser.value
   const bgColor = modalBgColor.value
 
-  const newData = {title, description, user, bgColor}
+  const newData = { title, description, user, bgColor }
   const todoIndex = data.findIndex(todo => todo.id == cardID)
 
   if (todoIndex >= 0) {
@@ -134,15 +142,12 @@ function hendleEditForm(event) {
     data.splice(todoIndex, 1, updatedTodo)
     render(data, listContentTodoElement, listContentProgressElement, listContentDoneElement)
     renderCount(data, countTodoElement, countProgressElement, countDoneElement)
+    formChangeElement.removeEventListener('sumbit', sumbitForm2)
   }
-  })
 }
-
 
 function handleSubmitForm(event) {
   event.preventDefault()
-
-  console.log(users)
 
   const title = inputListElement.value
   const description = textareaListElement.value
@@ -208,7 +213,7 @@ function hendleDeleteAllCard() {
 
 }
 
-function modalDeleteAllDone () {
+function modalDeleteAllDone() {
   const doneCards = data.filter(card => card.status === 'done')
   doneCards.forEach(card => {
     const index = data.indexOf(card)
@@ -224,3 +229,52 @@ function modalDeleteAllDone () {
 function handleBeforeUnload() {
   setData(data)
 }
+
+
+// const cardDraggable = document.querySelectorAll('.card')
+
+// cardDraggable.forEach((item) => {
+//   item.addEventListener('dragstart', () => {
+//     console.log('ok')
+//   })
+// })
+
+// listContentTodoElement, listContentProgressElement, listContentDoneElement
+
+todoElement.addEventListener('dragstart', drag)
+// listContentTodoElement.addEventListener('dragover', dragTodo)
+// listContentProgressElement.addEventListener('dragover', dragProgress)
+// listContentDoneElement.addEventListener('dragover', dragDone)
+
+
+function drag(event) {
+  const card = event.target.closest('.card')
+  const cardDraggable = document.querySelectorAll('.card')
+  listContentTodoElement.addEventListener('dragover', (e) => {
+    e.preventDefault()
+    listContentTodoElement.append(card)
+  })
+  listContentProgressElement.addEventListener('dragover', (e) => {
+    e.preventDefault()
+    listContentProgressElement.append(card)
+  })
+  listContentDoneElement.addEventListener('dragover', (e) => {
+    e.preventDefault()
+    listContentDoneElement.append(card)
+  })
+
+}
+
+// function dragTodo (event) {
+//   event.preventDefault()
+// }
+
+// function dragProgress (event) {
+//   event.preventDefault()
+//   const cardDraggable = document.querySelectorAll('.card')
+//   listContentProgressElement.append(cardDraggable)
+// }
+
+// function dragDone (event) {
+//   event.preventDefault()
+// }

@@ -4,7 +4,7 @@ function buildCardTemplate(data) {
   const statusProgress = data.status == 'progress' //? 'selected' : ''
   const statusDone = data.status == 'done' //? 'selected' : ''
   return `
-  <div id="${data.id}" class="card m-2 rounded-3 ${data.bgColor}">
+  <div id="${data.id}" class="card m-2 rounded-3 ${data.bgColor}" draggable="true">
     <div class="card__head d-flex justify-content-between p-2">
       <div class="card__title">${data.title}</div>
       <time class="card__time">${time}</time>
@@ -18,7 +18,7 @@ function buildCardTemplate(data) {
       <option value="progress" ${statusProgress}>In progress</option>
       <option value="done" ${statusDone}>Done</option>
     </select>
-    <button type="button" class="btn btn-info" role="edit" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="${data.title}">Edit</button>
+    <button type="button" class="btn btn-info btn-edit" role="edit" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="${data.title}" data-bs-card-id="${data.id}">Edit</button>
     <button class="btn btn-danger" role="deleteCard">Remove</button>
     </div>
   </div>`
