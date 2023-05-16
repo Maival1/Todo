@@ -167,14 +167,14 @@ function handleChangeStatus(event) {
   const progressCards = data.filter(card => card.status === 'progress')
 
   if (selectedStatus == 'todo') {
-    let datas = data.find((card) => card.id == id)
+    const datas = data.find((card) => card.id == id)
     datas.status = 'todo'
     render(data, listContentTodoElement, listContentProgressElement, listContentDoneElement)
     renderCount(data, countTodoElement, countProgressElement, countDoneElement)
   }
   if (selectedStatus == 'progress') {
     if (progressCards.length <= 5) {
-      let datas = data.find((card) => card.id == id)
+      const datas = data.find((card) => card.id == id)
       datas.status = 'progress'
       render(data, listContentTodoElement, listContentProgressElement, listContentDoneElement)
       renderCount(data, countTodoElement, countProgressElement, countDoneElement)
@@ -186,7 +186,7 @@ function handleChangeStatus(event) {
 
   }
   if (selectedStatus == 'done') {
-    let datas = data.find((card) => card.id == id)
+    const datas = data.find((card) => card.id == id)
     datas.status = 'done'
     render(data, listContentTodoElement, listContentProgressElement, listContentDoneElement)
     renderCount(data, countTodoElement, countProgressElement, countDoneElement)
@@ -250,14 +250,14 @@ listContentTodoElement.addEventListener('dragover', (e) => {
   const afterElement = getDraggingAfterElement(listContentTodoElement, e.clientY)
   const dragging = document.querySelector('.dragging')
   const cardId = dragging.id
-  let datas = data.find((card) => card.id == cardId)
+  const datas = data.find((card) => card.id == cardId)
   datas.status = 'todo'
 
   if (afterElement == null) {
     listContentTodoElement.append(dragging)
   } else {
     const CardIdAfter = afterElement.id
-    let datasAfter = data.find((card) => card.id == CardIdAfter)
+    const datasAfter = data.find((card) => card.id == CardIdAfter)
     const card1 = data.indexOf(datas)
     const card2 = data.indexOf(datasAfter)
     if (card1 < card2) {
@@ -276,14 +276,14 @@ listContentProgressElement.addEventListener('dragover', (e) => {
   const afterElement = getDraggingAfterElement(listContentProgressElement, e.clientY)
   const dragging = document.querySelector('.dragging')
   const cardId = dragging.id
-  let datas = data.find((card) => card.id == cardId)
+  const datas = data.find((card) => card.id == cardId)
   datas.status = 'progress'
 
   if (afterElement == null) {
     listContentProgressElement.append(dragging)
   } else {
     const CardIdAfter = afterElement.id
-    let datasAfter = data.find((card) => card.id == CardIdAfter)
+    const datasAfter = data.find((card) => card.id == CardIdAfter)
     const card1 = data.indexOf(datas)
     const card2 = data.indexOf(datasAfter)
     if (card1 < card2) {
@@ -302,14 +302,14 @@ listContentDoneElement.addEventListener('dragover', (e) => {
   const afterElement = getDraggingAfterElement(listContentDoneElement, e.clientY)
   const dragging = document.querySelector('.dragging')
   const cardId = dragging.id
-  let datas = data.find((card) => card.id == cardId)
+  const datas = data.find((card) => card.id == cardId)
   datas.status = 'done'
 
   if (afterElement == null) {
     listContentDoneElement.append(dragging)
   } else {
     const CardIdAfter = afterElement.id
-    let datasAfter = data.find((card) => card.id == CardIdAfter)
+    const datasAfter = data.find((card) => card.id == CardIdAfter)
     const card1 = data.indexOf(datas)
     const card2 = data.indexOf(datasAfter)
     if (card1 < card2) {
