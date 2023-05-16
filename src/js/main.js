@@ -238,18 +238,16 @@ todoElement.addEventListener('dragend', dragEnd)
 function drag(event) {
   const card = event.target.closest('.card')
   card.classList.add('dragging')
-  console.log(card)
 }
 
 function dragEnd() {
   const dragging = document.querySelector('.dragging')
   dragging.classList.remove('dragging')
-  console.log(dragging)
 }
 
 listContentTodoElement.addEventListener('dragover', (e) => {
   e.preventDefault()
-  const afterElement = getDraggingAfreElement(listContentTodoElement, e.clientY)
+  const afterElement = getDraggingAfterElement(listContentTodoElement, e.clientY)
   const dragging = document.querySelector('.dragging')
   const cardId = dragging.id
   let datas = data.find((card) => card.id == cardId)
@@ -258,13 +256,24 @@ listContentTodoElement.addEventListener('dragover', (e) => {
   if (afterElement == null) {
     listContentTodoElement.append(dragging)
   } else {
+    const CardIdAfter = afterElement.id
+    let datasAfter = data.find((card) => card.id == CardIdAfter)
+    const card1 = data.indexOf(datas)
+    const card2 = data.indexOf(datasAfter)
+    if (card1 < card2) {
+      data.splice(card2 + 1, 0, datas);
+      data.splice(card1, 1);
+    } else {
+      data.splice(card2, 0, datas);
+      data.splice(card1 + 1, 1);
+    }
     listContentTodoElement.insertBefore(dragging, afterElement)
   }
 })
 
 listContentProgressElement.addEventListener('dragover', (e) => {
   e.preventDefault()
-  const afterElement = getDraggingAfreElement(listContentProgressElement, e.clientY)
+  const afterElement = getDraggingAfterElement(listContentProgressElement, e.clientY)
   const dragging = document.querySelector('.dragging')
   const cardId = dragging.id
   let datas = data.find((card) => card.id == cardId)
@@ -273,13 +282,24 @@ listContentProgressElement.addEventListener('dragover', (e) => {
   if (afterElement == null) {
     listContentProgressElement.append(dragging)
   } else {
+    const CardIdAfter = afterElement.id
+    let datasAfter = data.find((card) => card.id == CardIdAfter)
+    const card1 = data.indexOf(datas)
+    const card2 = data.indexOf(datasAfter)
+    if (card1 < card2) {
+      data.splice(card2 + 1, 0, datas);
+      data.splice(card1, 1);
+    } else {
+      data.splice(card2, 0, datas);
+      data.splice(card1 + 1, 1);
+    }
     listContentProgressElement.insertBefore(dragging, afterElement)
   }
 })
 
 listContentDoneElement.addEventListener('dragover', (e) => {
   e.preventDefault()
-  const afterElement = getDraggingAfreElement(listContentDoneElement, e.clientY)
+  const afterElement = getDraggingAfterElement(listContentDoneElement, e.clientY)
   const dragging = document.querySelector('.dragging')
   const cardId = dragging.id
   let datas = data.find((card) => card.id == cardId)
@@ -288,11 +308,22 @@ listContentDoneElement.addEventListener('dragover', (e) => {
   if (afterElement == null) {
     listContentDoneElement.append(dragging)
   } else {
+    const CardIdAfter = afterElement.id
+    let datasAfter = data.find((card) => card.id == CardIdAfter)
+    const card1 = data.indexOf(datas)
+    const card2 = data.indexOf(datasAfter)
+    if (card1 < card2) {
+      data.splice(card2 + 1, 0, datas);
+      data.splice(card1, 1);
+    } else {
+      data.splice(card2, 0, datas);
+      data.splice(card1 + 1, 1);
+    }
     listContentDoneElement.insertBefore(dragging, afterElement)
   }
 })
 
-function getDraggingAfreElement (container, y) {
+function getDraggingAfterElement (container, y) {
   const draggablElement = [...container.querySelectorAll('.card:not(.dragging)')]
 
  return draggablElement.reduce((closest, child) => {
